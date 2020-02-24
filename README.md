@@ -1,2 +1,2 @@
-# cocktailapp
-Android app for university stuff
+# CocktailApp
+Description coming soon
