@@ -1,8 +1,6 @@
 package com.hnpper.cocktailapp.data
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.*
 import java.io.Serializable
 
 @Entity
@@ -14,5 +12,6 @@ data class User (
     @ColumnInfo(name = "password")
     val password : String,
     @ColumnInfo(name = "fav_cocktails")
-    val favCocktails : List<Cocktail>
+    @TypeConverters(Converters::class)
+    val favCocktailsId : List<Int>
 ) : Serializable

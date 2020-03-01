@@ -7,5 +7,48 @@
         <variable name="cocktail" type="com.hnpper.cocktailapp.data.Cocktail"/>
     </data>
 
+    <com.hnpper.cocktailapp.view.MaskedCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/card_side_margin"
+        android:layout_marginEnd="@dimen/card_side_margin"
+        android:layout_marginBottom="@dimen/card_bottom_margin"
+        app:cardElevation="@dimen/card_elevation"
+        app:cardPreventCornerOverlap="false"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Cocktail.Card">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/cocktail_item_image"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/cocktail_item_image_height"
+                android:contentDescription="@string/image_of_cocktail"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/cocktail_image"/>
+
+            <TextView
+                android:id="@+id/cocktail_item_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_normal"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:text="kukac-kapcsoszarojel-koktel-neve"
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:gravity="center_horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cocktail_item_image"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:text="Cocktail"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.hnpper.cocktailapp.view.MaskedCardView>
 
 </layout>
