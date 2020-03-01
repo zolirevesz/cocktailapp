@@ -1,7 +1,7 @@
-package com.example.cocktailapp.remote
+package com.hnpper.cocktailapp.remote
 
-import com.example.cocktailapp.data.Cocktail
-import com.example.cocktailapp.data.ResponseList
+import com.hnpper.cocktailapp.data.Cocktail
+import com.hnpper.cocktailapp.data.ResponseList
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

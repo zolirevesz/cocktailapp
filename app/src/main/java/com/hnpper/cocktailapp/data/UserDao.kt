@@ -1,4 +1,4 @@
-package com.example.cocktailapp.data
+package com.hnpper.cocktailapp.data
 
 import androidx.room.*
 
