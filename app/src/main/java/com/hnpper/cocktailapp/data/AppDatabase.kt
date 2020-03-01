@@ -19,13 +19,6 @@ abstract class AppDatabase : RoomDatabase() {
         @Volatile
         private var instance: AppDatabase? = null
 
-        val webservice by lazy {
-            Retrofit.Builder()
-                .baseUrl("https://www.thecocktaildb.com/api/json/v1/")
-                .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
-                .build().create(RemoteServiceInterface::class.java)
-        }
-
         fun getInstance(context: Context): AppDatabase {
             return instance ?: synchronized(this) {
                 instance ?: buildDatabase(context).also { instance = it }
