@@ -1,4 +1,4 @@
-package com.hnpper.cocktailapp.viewmodel
+package com.hnpper.cocktailapp.di
 
 import androidx.lifecycle.ViewModel
 import co.zsmb.rainbowcake.dagger.ViewModelKey

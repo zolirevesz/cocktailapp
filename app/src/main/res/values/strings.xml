@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">CocktailApp</string>
     <string name="image_of_cocktail">Image of Cocktail</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="nav_header_title">User</string>
+    <string name="nav_header_subtitle">user@example.com</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_search">Search</string>
 </resources>
