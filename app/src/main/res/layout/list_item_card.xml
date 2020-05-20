@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable name="cocktail" type="com.hnpper.cocktailapp.data.Cocktail"/>
+        <variable name="clickListener" type="android.view.View.OnClickListener"/>
+        <variable name="cocktail" type="com.hnpper.cocktailapp.model.Cocktail"/>
     </data>
 
     <com.hnpper.cocktailapp.view.MaskedCardView

@@ -1,6 +1,7 @@
-package com.hnpper.cocktailapp.data
+package com.hnpper.cocktailapp.model
 
 import androidx.room.*
+import com.hnpper.cocktailapp.data.Converters
 import java.io.Serializable
 
 @Entity

@@ -24,4 +24,19 @@ class Converters {
     fun integerListToString(someObjects: List<Int?>?): String? {
         return gson.toJson(someObjects)
     }
+
+    @TypeConverter
+    fun stringToStringList(data: String?): List<String?>? {
+        if (data == null) {
+            return Collections.emptyList()
+        }
+        val listType: Type =
+            object : TypeToken<List<String?>?>() {}.type
+        return gson.fromJson(data, listType)
+    }
+
+    @TypeConverter
+    fun stringListToString(someObjects: List<String?>?): String? {
+        return gson.toJson(someObjects)
+    }
 }

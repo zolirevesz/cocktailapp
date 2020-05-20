@@ -1,7 +1,7 @@
 package com.hnpper.cocktailapp.remote
 
-import com.hnpper.cocktailapp.data.Cocktail
-import com.hnpper.cocktailapp.data.ResponseList
+import com.hnpper.cocktailapp.model.Cocktail
+import com.hnpper.cocktailapp.model.ResponseList
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -14,4 +14,7 @@ interface RemoteServiceInterface {
 
     @GET("lookup.php?i={idDrink}")
     suspend fun getCocktailById(@Path("idDrink") id: Int, @Query("api_key") apikey: String): Cocktail
+
+    @GET("search.php?f=a")
+    suspend fun getList(@Query("api_key") apikey: String): ResponseList
 }

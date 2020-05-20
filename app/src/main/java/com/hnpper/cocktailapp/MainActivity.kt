@@ -15,10 +15,17 @@ import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.hnpper.cocktailapp.model.User
+import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
+
+    companion object {
+        lateinit var user: User
+        private const val RC_SIGN_IN = 123
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +47,15 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.nav_host_fragment)
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    private fun createSignInIntent() {
+        // [START auth_fui_create_intent]
         // Choose authentication providers
         val providers = arrayListOf(
             AuthUI.IdpConfig.EmailBuilder().build(),
@@ -52,13 +68,10 @@ class MainActivity : AppCompatActivity() {
                 .setAvailableProviders(providers)
                 .build(),
             RC_SIGN_IN)
+        // [END auth_fui_create_intent]
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment)
-        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
-    }
-
+    // [START auth_fui_result]
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -67,7 +80,8 @@ class MainActivity : AppCompatActivity() {
 
             if (resultCode == Activity.RESULT_OK) {
                 // Successfully signed in
-                val user = FirebaseAuth.getInstance().currentUser
+                val user_current = FirebaseAuth.getInstance().currentUser
+                user = User(Random.nextInt(), user_current?.email as String, "", listOf(1) )
                 // ...
             } else {
                 // Sign in failed. If response is null the user canceled the
@@ -77,5 +91,17 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+    // [END auth_fui_result]
+
+    private fun signOut() {
+        // [START auth_fui_signout]
+        AuthUI.getInstance()
+            .signOut(this)
+            .addOnCompleteListener {
+                // ...
+            }
+        // [END auth_fui_signout]
+    }
+
 
 }

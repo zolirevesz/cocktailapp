@@ -1,6 +1,6 @@
 package com.hnpper.cocktailapp.ui.home
 
-import com.hnpper.cocktailapp.data.Cocktail
+import com.hnpper.cocktailapp.model.Cocktail
 
 sealed class HomeViewState
 

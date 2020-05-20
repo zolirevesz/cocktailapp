@@ -1,6 +1,6 @@
 package com.hnpper.cocktailapp.ui.login
 
-import com.hnpper.cocktailapp.data.User
+import com.hnpper.cocktailapp.model.User
 
 sealed class LoginViewState
 
