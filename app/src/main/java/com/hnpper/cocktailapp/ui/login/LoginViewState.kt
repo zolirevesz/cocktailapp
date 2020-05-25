@@ -4,6 +4,8 @@ import com.hnpper.cocktailapp.model.User
 
 sealed class LoginViewState
 
+object LoginStarted : LoginViewState()
+
 object Loading: LoginViewState()
 
 data class LoginSuccessful(val user: User): LoginViewState()

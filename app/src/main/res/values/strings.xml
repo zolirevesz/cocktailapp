@@ -12,4 +12,18 @@
     <string name="glass">Glass</string>
     <string name="alcoholic">Alcoholic</string>
     <string name="search">Search by name:</string>
+    <string name="login">Login</string>
+    <string name="email">E-mail address</string>
+    <string name="password">Password</string>
+    <string name="click_to_register">Click to register!</string>
+    <string name="login_data">Login data</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="register">Register</string>
+    <string name="name">Name</string>
+    <string name="permissions_granted">PERMISSIONS_GRANTED</string>
+    <string name="error_password_length">The password must contain a minimum of 8 characters!</string>
+    <string name="error_password">Passwords must match</string>
+    <string name="error_email">Invalid email address</string>
+    <string name="error_field_empty">Field empty!</string>
+    <string name="menu_login">Login</string>
 </resources>

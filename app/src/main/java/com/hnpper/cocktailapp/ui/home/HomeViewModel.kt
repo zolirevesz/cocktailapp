@@ -12,55 +12,20 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Inject
 
-class HomeViewModel (private val cocktailRepository: CocktailRepository) : ViewModel() {
-/*
-    fun load() = execute {
-        viewState = HomeLoaded(cocktailList = listOf(
-            Cocktail(
-                1,
-                "tempCocktail",
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null
-            ),
-            webservice.getCocktailById(11007, "1")
-            ))
+class HomeViewModel @Inject constructor(
+    private val homePresenter: HomePresenter
+) : JobViewModel<HomeViewState>(Loading) {
 
-    }
-*/
-    val webservice by lazy {
-        Retrofit.Builder()
-            .baseUrl("https://www.thecocktaildb.com/api/json/v1/")
-            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
-            .build().create(RemoteServiceInterface::class.java)
+    fun loadData() = execute {
+        viewState = Loading
+        viewState =
+            HomeLoaded(homePresenter.getUser())
     }
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is All Series Fragment"
+    fun logout() = execute {
+        viewState = Loading
+        if (homePresenter.logout()) {
+            viewState = LoggedOut
+        }
     }
-    val text: LiveData<String> = _text
-
-    val list: LiveData<List<Cocktail>> = cocktailRepository.getCocktails() as LiveData<List<Cocktail>>
-
-    fun add(cocktail: Cocktail) {
-        cocktailRepository.addCocktail(cocktail)
-    }
-
 }

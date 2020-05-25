@@ -1,87 +1,81 @@
 package com.hnpper.cocktailapp.ui.home
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.revesz.seriestracker_v2.utilities.InjectorUtils
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.observe
-import androidx.recyclerview.widget.RecyclerView
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import co.zsmb.rainbowcake.base.RainbowCakeFragment
 import co.zsmb.rainbowcake.dagger.getViewModelFromFactory
-import co.zsmb.rainbowcake.extensions.exhaustive
+import co.zsmb.rainbowcake.navigation.navigator
 import com.hnpper.cocktailapp.R
-import com.hnpper.cocktailapp.databinding.FragmentHomeBinding
+import com.hnpper.cocktailapp.model.Cocktail
+import com.hnpper.cocktailapp.ui.login.LoginFragment
+import kotlinx.android.synthetic.main.fragment_home.*
 
-class HomeFragment : Fragment() {
-    /*override fun provideViewModel() = getViewModelFromFactory()
+class HomeFragment :
+    RainbowCakeFragment<HomeViewState, HomeViewModel>(),
+    HomeAdapter.Listener{
+    override fun provideViewModel() = getViewModelFromFactory()
     override fun getViewResource() = R.layout.fragment_home
+
+    private val homeAdapter = HomeAdapter()
+    private lateinit var sharedPref: SharedPreferences
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // TODO Setup views
+        sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
+
+        initAdapter()
+
+        ivSignOut.setOnClickListener {
+            viewModel.logout()
+        }
     }
 
     override fun onStart() {
         super.onStart()
-        viewModel.load()
+        viewModel.loadData()
+    }
+
+    private fun initAdapter() {
+        rvCocktails.adapter = homeAdapter
+        rvCocktails.layoutManager = LinearLayoutManager(requireContext())
+        homeAdapter.listener = this
     }
 
     override fun render(viewState: HomeViewState) {
-        // TODO Render state
         when (viewState) {
             is Loading -> {
-
+                progressBar.visibility = View.VISIBLE
             }
             is HomeLoaded -> {
-                val viewManager = RecyclerView.LayoutManager(this)
-                val viewAdapter = HomeAdapter()
-                viewAdapter.submitList(viewState.cocktailList)
-                viewState.cocktailList.observe(viewLifecycleOwner) { list ->
-                    viewAdapter.submitList(list)
-                }
-                recyclerView = findViewById<RecyclerView>(R.id.my_recycler_view).apply {
-                    // use this setting to improve performance if you know that changes
-                    // in content do not change the layout size of the RecyclerView
-                    setHasFixedSize(true)
+                tvName.text = viewState.user.name
+                val cocktails: MutableList<Cocktail> = getCocktailList()
+                homeAdapter.submitList(cocktails)
+            }
+            is LoggedOut -> {
+                Toast.makeText(
+                    requireContext(),
+                    "Logged out of app!",
+                    Toast.LENGTH_SHORT
+                ).show()
 
-                    // use a linear layout manager
-                    layoutManager = viewManager
-
-                    // specify an viewAdapter (see also next example)
-                    adapter = viewAdapter
-
+                navigator?.run {
+                    setStack(LoginFragment())
+                    executePending()
                 }
             }
-        }.exhaustive
-        */
-
-    private val homeViewModel: HomeViewModel by viewModels {
-        InjectorUtils.provideHomeViewModelFactory(requireContext())
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val binding = FragmentHomeBinding.inflate(inflater, container, false)
-        context ?: return binding.root
-        val adapter = HomeAdapter()
-        binding.cocktailList.adapter = adapter
-        subscribeUi(adapter)
-
-        setHasOptionsMenu(true)
-        return binding.root
-    }
-
-    private fun subscribeUi(adapter: HomeAdapter) {
-        homeViewModel.list.observe(viewLifecycleOwner) { list ->
-            adapter.submitList(list)
         }
     }
 
+    private fun getCocktailList() : MutableList<Cocktail> {
+        // TODO implement
+    }
+
+    override fun onCocktailClicked(cocktail: Cocktail) {
+        // TODO launch detailed view (DetailFragment)
+    }
 }
