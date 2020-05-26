@@ -65,21 +65,7 @@ class FirebaseInteractor @Inject constructor(
         } else {
             networkDataSource.changeEmail(user.email)
         }
-
-        if (photoUri != null) {
-            var uploadPhotoState = true
-            val url = networkDataSource.uploadPhoto(photoUri)
-            if (url != "") {
-                user.photoImageUrl = url
-            } else {
-                uploadPhotoState = false
-            }
-            if (uploadPhotoState) {
-                networkDataSource.saveUser(user)
-            }
-        } else {
-            networkDataSource.saveUser(user)
-        }
+        networkDataSource.saveUser(user)
 
         return true
     }

@@ -9,7 +9,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.google.gson.GsonBuilder
 import com.hnpper.cocktailapp.data.Converters
 import com.hnpper.cocktailapp.model.Cocktail
-import com.hnpper.cocktailapp.model.CocktailResponse
+import com.hnpper.cocktailapp.model.CocktailRoom
 import com.hnpper.cocktailapp.model.ResponseList
 import com.hnpper.cocktailapp.model.User
 import com.hnpper.cocktailapp.remote.RemoteServiceInterface
@@ -59,12 +59,14 @@ abstract class CocktailRoomDatabase : RoomDatabase() {
                 .build()
         }
 
-        private fun responseToCocktail(list: ResponseList): List<Cocktail> {
-            var resultList: MutableList<Cocktail> = listOf()
+        private fun responseToCocktail(list: ResponseList): List<CocktailRoom> {
+            var resultList: MutableList<CocktailRoom> = mutableListOf()
             for (item: Cocktail in list.cocktailList) {
-                resultList.add(Cocktail(item.idDrink, item.strDrink, item.strCategory as String, item.strAlcoholic as String, item.strGlass as String, item.strInstruction as String,
+                resultList.add(
+                    CocktailRoom(item.idDrink, item.strDrink, item.strCategory as String, item.strAlcoholic as String, item.strGlass as String, item.strInstruction as String,
                     listOf(item.strIngredient1 as String, item.strIngredient2 as String, item.strIngredient3 as String, item.strIngredient4 as String, item.strIngredient5 as String, item.strIngredient6 as String, item.strIngredient7 as String, item.strIngredient8 as String,
-                        item.strIngredient9 as String, item.strIngredient10 as String, item.strIngredient11 as String, item.strIngredient12 as String, item.strIngredient13 as String, item.strIngredient14 as String, item.strIngredient15 as String).joinToString(","), item.strDrinkThumb as String))
+                        item.strIngredient9 as String, item.strIngredient10 as String, item.strIngredient11 as String, item.strIngredient12 as String, item.strIngredient13 as String, item.strIngredient14 as String, item.strIngredient15 as String), item.strDrinkThumb as String)
+                )
             }
             return resultList
         }

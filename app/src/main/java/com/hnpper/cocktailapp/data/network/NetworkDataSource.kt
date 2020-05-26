@@ -139,8 +139,24 @@ class NetworkDataSource @Inject constructor() {
         auth.currentUser!!.updatePassword(password)
     }
 
+    suspend fun saveUser(user: User): Boolean {
+        var saveDataState = false
+        val uid = user.id
+        database.collection("users").document(uid).set(user)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d(TAG, "Save success")
+                    saveDataState = true
+                } else {
+                    Log.w(TAG, "Save failure", task.exception)
+                }
+            }
+            .await()
+        return saveDataState
+    }
+
     suspend fun getUser(id: String): User {
-        var user = User("","","","","",listOf())
+        var user = User("","","","","", listOf(1) as MutableList<Int>)
         database.collection("users").document(id).get()
             .addOnSuccessListener { document ->
                 if (document != null) {
@@ -159,7 +175,7 @@ class NetworkDataSource @Inject constructor() {
         val password = data["password"] as String
         val email = data["email"] as String
         val photoImageUrl = data["photoImageUrl"] as String?
-        val favList = data["favList"] as String //convert to list of integers
+        val favList = data["favList"] as MutableList<Int> //convert to list of integers
 
         user = User(id, name, password, email, photoImageUrl, favList)
 

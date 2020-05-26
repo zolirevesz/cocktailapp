@@ -83,7 +83,7 @@ class HomeFragment :
     }
 
     private fun getCocktailList() : MutableList<Cocktail> {
-        var list : MutableList<Cocktail>
+        var list : MutableList<Cocktail> = mutableListOf()
         val webservice by lazy {
             Retrofit.Builder()
                 .baseUrl("https://www.thecocktaildb.com/api/json/v1/")
