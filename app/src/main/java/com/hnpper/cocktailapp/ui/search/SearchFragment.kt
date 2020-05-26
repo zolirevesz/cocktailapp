@@ -91,8 +91,7 @@ SearchAdapter.Listener {
         }
 
         GlobalScope.launch {
-            //responselist = webservice.getCocktails(name)
-            responselist = webservice.getList()
+            responselist = webservice.getCocktails(name)
         }
 
         list = responselist.cocktailList
