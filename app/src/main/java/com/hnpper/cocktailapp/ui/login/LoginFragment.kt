@@ -20,7 +20,6 @@ class LoginFragment : RainbowCakeFragment<LoginViewState, LoginViewModel>() {
     override fun provideViewModel() = getViewModelFromFactory()
     override fun getViewResource() = R.layout.fragment_login
 
-    private var rememberMe: Boolean = false
     private lateinit var sharedPref: SharedPreferences
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

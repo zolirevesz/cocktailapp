@@ -139,17 +139,17 @@ class NetworkDataSource @Inject constructor() {
         auth.currentUser!!.updatePassword(password)
     }
 
-    suspend fun getuser(id: String): User {
-        var client = User("","","","","",listOf())
+    suspend fun getUser(id: String): User {
+        var user = User("","","","","",listOf())
         database.collection("users").document(id).get()
             .addOnSuccessListener { document ->
                 if (document != null) {
                     val data = document.data!!
-                    client = createUser(data)
+                    user = createUser(data)
                 }
             }
             .await()
-        return client
+        return user
     }
 
     private fun createUser(data: Map<String, Any?>): User {

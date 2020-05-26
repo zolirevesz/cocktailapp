@@ -8,7 +8,7 @@ import com.hnpper.cocktailapp.data.Converters
 import java.io.Serializable
 
 @Entity
-data class Cocktail (
+data class CocktailRoom (
     @PrimaryKey(autoGenerate = true)
     var idDrink : Int,
     @ColumnInfo(name = "name")
@@ -28,7 +28,7 @@ data class Cocktail (
     val strDrinkThumb : String?
 ) : Serializable
 
-data class CocktailResponse (
+data class Cocktail (
     val idDrink : Int,
     val strDrink : String,
     val strCategory : String?,

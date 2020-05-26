@@ -1,4 +1,4 @@
-package com.hnpper.cocktailapp.ui.home
+package com.hnpper.cocktailapp.ui.search
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,18 +6,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.ListAdapter
-import androidx.navigation.findNavController
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.hnpper.cocktailapp.R
 import com.hnpper.cocktailapp.model.Cocktail
-import com.hnpper.cocktailapp.databinding.ListItemCardBinding
 import com.hnpper.cocktailapp.utilities.CocktailComparator
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.list_item_card.view.*
-import java.text.SimpleDateFormat
 
-class HomeAdapter : ListAdapter<Cocktail, HomeAdapter.CocktailViewHolder>(CocktailComparator) {
+class SearchAdapter : ListAdapter<Cocktail, SearchAdapter.CocktailViewHolder>(CocktailComparator) {
 
     var listener: Listener? = null
 

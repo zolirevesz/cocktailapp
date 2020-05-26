@@ -60,11 +60,11 @@ abstract class CocktailRoomDatabase : RoomDatabase() {
         }
 
         private fun responseToCocktail(list: ResponseList): List<Cocktail> {
-            var resultList: MutableList<Cocktail>
-            for (item: CocktailResponse in list.cocktailList) {
+            var resultList: MutableList<Cocktail> = listOf()
+            for (item: Cocktail in list.cocktailList) {
                 resultList.add(Cocktail(item.idDrink, item.strDrink, item.strCategory as String, item.strAlcoholic as String, item.strGlass as String, item.strInstruction as String,
                     listOf(item.strIngredient1 as String, item.strIngredient2 as String, item.strIngredient3 as String, item.strIngredient4 as String, item.strIngredient5 as String, item.strIngredient6 as String, item.strIngredient7 as String, item.strIngredient8 as String,
-                        item.strIngredient9 as String, item.strIngredient10 as String, item.strIngredient11 as String, item.strIngredient12 as String, item.strIngredient13 as String, item.strIngredient14 as String, item.strIngredient15 as String), item.strDrinkThumb as String))
+                        item.strIngredient9 as String, item.strIngredient10 as String, item.strIngredient11 as String, item.strIngredient12 as String, item.strIngredient13 as String, item.strIngredient14 as String, item.strIngredient15 as String).joinToString(","), item.strDrinkThumb as String))
             }
             return resultList
         }

@@ -9,10 +9,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import co.zsmb.rainbowcake.base.RainbowCakeFragment
 import co.zsmb.rainbowcake.dagger.getViewModelFromFactory
 import co.zsmb.rainbowcake.navigation.navigator
+import com.google.gson.GsonBuilder
 import com.hnpper.cocktailapp.R
 import com.hnpper.cocktailapp.model.Cocktail
+import com.hnpper.cocktailapp.model.User
+import com.hnpper.cocktailapp.remote.RemoteServiceInterface
+import com.hnpper.cocktailapp.ui.detail.DetailFragment
 import com.hnpper.cocktailapp.ui.login.LoginFragment
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class HomeFragment :
     RainbowCakeFragment<HomeViewState, HomeViewModel>(),
@@ -22,6 +31,7 @@ class HomeFragment :
 
     private val homeAdapter = HomeAdapter()
     private lateinit var sharedPref: SharedPreferences
+    private lateinit var currentUser: User
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -53,6 +63,7 @@ class HomeFragment :
             }
             is HomeLoaded -> {
                 tvName.text = viewState.user.name
+                currentUser = viewState.user
                 val cocktails: MutableList<Cocktail> = getCocktailList()
                 homeAdapter.submitList(cocktails)
             }
@@ -72,10 +83,24 @@ class HomeFragment :
     }
 
     private fun getCocktailList() : MutableList<Cocktail> {
-        // TODO implement
+        var list : MutableList<Cocktail>
+        val webservice by lazy {
+            Retrofit.Builder()
+                .baseUrl("https://www.thecocktaildb.com/api/json/v1/")
+                .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
+                .build().create(RemoteServiceInterface::class.java)
+        }
+
+        for (cocktailId in currentUser.favCocktailsId) {
+            GlobalScope.launch(Dispatchers.IO) {
+                list.add(webservice.getCocktailById(cocktailId, "1"))
+            }
+        }
+
+        return list
     }
 
     override fun onCocktailClicked(cocktail: Cocktail) {
-        // TODO launch detailed view (DetailFragment)
+       navigator?.add(DetailFragment(cocktail))
     }
 }

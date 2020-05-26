@@ -1,22 +1,33 @@
 package com.hnpper.cocktailapp.ui.detail
 
-import androidx.lifecycle.ViewModel
+import android.net.Uri
 import co.zsmb.rainbowcake.base.JobViewModel
-import com.google.gson.GsonBuilder
-import com.hnpper.cocktailapp.data.disk.CocktailRepository
-import com.hnpper.cocktailapp.model.Cocktail
-import com.hnpper.cocktailapp.remote.RemoteServiceInterface
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import com.hnpper.cocktailapp.model.User
+import javax.inject.Inject
 
-class DetailViewModel (private val cocktailRepository: CocktailRepository, private val idDrink: Int): ViewModel() {
-    /*fun load() = execute {
+class DetailViewModel @Inject constructor(
+    private val detailPresenter: DetailPresenter
+) : JobViewModel<DetailViewState>(Loading) {
+
+    fun load() = execute {
+        viewState =
+            Loaded(detailPresenter.getUser())
+    }
+
+    fun saveUser(user: User, password: String?, photoUri: Uri?) = execute {
+        viewState = Loading
+        detailPresenter.saveUser(user, password, photoUri)
+        viewState = Loaded(detailPresenter.getUser())
+    }
+
+    /*
+    fun load() = execute {
         viewState = Loaded(cocktail =
             webservice.getCocktailById(11007, "1")
 
         ))
 
-    }*/
+    }
 
     val webservice by lazy {
         Retrofit.Builder()
@@ -24,18 +35,5 @@ class DetailViewModel (private val cocktailRepository: CocktailRepository, priva
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
             .build().create(RemoteServiceInterface::class.java)
     }
-
-    val cocktail = cocktailRepository.getCocktail(idDrink)
-
-    fun add(cocktail: Cocktail) {
-        cocktailRepository.addCocktail(cocktail)
-    }
-
-    fun update(cocktail: Cocktail) {
-        cocktailRepository.updateCocktail(cocktail)
-    }
-
-    fun getImgUrl(): String {
-        return cocktail.strDrinkThumb as String
-    }
+    */
 }

@@ -1,5 +1,6 @@
 package com.hnpper.cocktailapp.ui.detail
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,46 +10,43 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import co.zsmb.rainbowcake.base.RainbowCakeFragment
+import co.zsmb.rainbowcake.dagger.getViewModelFromFactory
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.hnpper.cocktailapp.R
 import com.hnpper.cocktailapp.databinding.FragmentDetailBinding
 import com.hnpper.cocktailapp.model.Cocktail
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_detail.*
+import javax.inject.Inject
 
-class DetailFragment : Fragment() {
+class DetailFragment @Inject constructor(
+    private val cocktail : Cocktail
+): RainbowCakeFragment<DetailViewState, DetailViewModel>() {
+    override fun provideViewModel() = getViewModelFromFactory()
+    override fun getViewResource() = R.layout.fragment_detail
 
-    private val args: DetailFragmentArgs by navArgs()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-    private val detailViewModel: DetailViewModel by viewModels {
 
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val binding = DataBindingUtil.inflate<FragmentDetailBinding>(
-            inflater, R.layout.fragment_detail, container, false
-        ).apply {
-            Picasso.with(context).load(detailViewModel.getImgUrl()).into(imgCocktail)
-            viewModel = detailViewModel
-            lifecycleOwner = viewLifecycleOwner
-            callback = object : Callback {
-                override fun add(cocktail: Cocktail?) {
-                    cocktail?.let {
-                        hideAppBarFab(fab)
-                        detailViewModel.update(it)
-                        Snackbar.make(root, "Cocktail added!", Snackbar.LENGTH_LONG)
-                            .show()
-                    }
+
+    override fun render(viewState: DetailViewState) {
+        when (viewState) {
+            is Loading -> {
+                progressBar.visibility = View.VISIBLE
+            }
+            is Loaded -> {
+                progressBar.visibility = View.GONE
+                fab.setOnClickListener{
+                    viewState.user.favCocktailsId.add(11111) // cocktailID
+                    viewModel.saveUser(viewState.user, viewState.user.password, Uri.parse(viewState.user.photoImageUrl))
                 }
             }
         }
-
-
-        return binding.root
     }
 
     private fun hideAppBarFab(fab: FloatingActionButton) {
@@ -58,9 +56,5 @@ class DetailFragment : Fragment() {
         fab.hide()
     }
 
-
-    interface Callback {
-        fun add(cocktail: Cocktail?)
-    }
 
 }
