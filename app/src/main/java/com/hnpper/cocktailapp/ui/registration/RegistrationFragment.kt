@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import co.zsmb.rainbowcake.base.RainbowCakeFragment
 import co.zsmb.rainbowcake.dagger.getViewModelFromFactory
 import co.zsmb.rainbowcake.navigation.BackPressAware
@@ -36,7 +37,7 @@ class RegistrationFragment : RainbowCakeFragment<RegistrationViewState, Registra
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        user = User("","","","",listOf())
+        user = User("","","","","", mutableListOf())
 
         setupLoginDataViews()
     }
@@ -89,9 +90,9 @@ class RegistrationFragment : RainbowCakeFragment<RegistrationViewState, Registra
         when (viewState) {
             is RegistrationReady -> {
                 progressBar.visibility = View.GONE
-                navigator?.run {
-                    setStack(HomeFragment())
-                    executePending()
+                btnRegister.setOnClickListener{
+                    viewModel.registerWithEmail(user, userPassword, Uri.parse(""))
+                    findNavController().navigate(R.id.nav_home)
                 }
             }
             is RegistrationFailed -> {

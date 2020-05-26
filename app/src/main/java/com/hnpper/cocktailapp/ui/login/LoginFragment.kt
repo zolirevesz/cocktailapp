@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import co.zsmb.rainbowcake.base.RainbowCakeFragment
 import co.zsmb.rainbowcake.dagger.getViewModelFromFactory
 import co.zsmb.rainbowcake.navigation.navigator
@@ -47,7 +48,9 @@ class LoginFragment : RainbowCakeFragment<LoginViewState, LoginViewModel>() {
         }
 
         tvRegister.setOnClickListener {
-            navigator?.add(RegistrationFragment())
+           findNavController().navigate(R.id.nav_registration)
+
+            //navigator?.add(RegistrationFragment())
 
             //startActivityForResult(..)
         }
@@ -57,13 +60,21 @@ class LoginFragment : RainbowCakeFragment<LoginViewState, LoginViewModel>() {
         when (viewState) {
             is LoginStarted -> {
             }
+            is LoginReady -> {
+                progressBarLogin.visibility = View.GONE
+            }
             is LoginSuccessful -> {
                 progressBarLogin.visibility = View.GONE
 
+                findNavController().navigate(R.id.nav_home)
+
+                /*
                 navigator?.run {
                     setStack(HomeFragment())
                     executePending()
+
                 }
+                 */
             }
             is LoginUnsuccessful -> {
                 progressBarLogin.visibility = View.GONE

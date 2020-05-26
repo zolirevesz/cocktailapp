@@ -27,4 +27,6 @@
     <string name="error_field_empty">Field empty!</string>
     <string name="menu_login">Login</string>
     <string name="btnsearch">Search</string>
+    <string name="menu_registration">Registration</string>
+    <string name="menu_detail">Details</string>
 </resources>

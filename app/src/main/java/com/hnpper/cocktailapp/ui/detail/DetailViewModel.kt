@@ -2,7 +2,14 @@ package com.hnpper.cocktailapp.ui.detail
 
 import android.net.Uri
 import co.zsmb.rainbowcake.base.JobViewModel
+import com.google.gson.GsonBuilder
+import com.hnpper.cocktailapp.model.Cocktail
 import com.hnpper.cocktailapp.model.User
+import com.hnpper.cocktailapp.remote.RemoteServiceInterface
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Inject
 
 class DetailViewModel @Inject constructor(
@@ -20,20 +27,22 @@ class DetailViewModel @Inject constructor(
         viewState = Loaded(detailPresenter.getUser())
     }
 
-    /*
-    fun load() = execute {
-        viewState = Loaded(cocktail =
-            webservice.getCocktailById(11007, "1")
-
-        ))
-
+    fun getCocktail(id: Int): Cocktail {
+        var cocktail: Cocktail = Cocktail(1,"","","","","","","","","","","","","","","","","","","","","")
+        GlobalScope.launch {
+            cocktail = webservice.getCocktailById(id)
+        }
+        return cocktail
     }
 
-    val webservice by lazy {
-        Retrofit.Builder()
-            .baseUrl("https://www.thecocktaildb.com/api/json/v1/")
-            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
-            .build().create(RemoteServiceInterface::class.java)
+    companion object{
+        val webservice by lazy {
+            Retrofit.Builder()
+                .baseUrl("https://www.thecocktaildb.com/api/json/v1/")
+                .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
+                .build().create(RemoteServiceInterface::class.java)
+        }
     }
-    */
+
+
 }

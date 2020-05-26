@@ -1,15 +1,16 @@
 package com.hnpper.cocktailapp.data.disk
 
 import com.hnpper.cocktailapp.model.Cocktail
+import com.hnpper.cocktailapp.model.CocktailRoom
 
 class CocktailRepository private constructor(private val cocktailDao: CocktailDao) {
     fun getCocktails() = cocktailDao.getAll()
 
     fun getCocktail(idDrink: Int) = cocktailDao.getCocktailById(idDrink)
 
-    fun addCocktail(cocktail: Cocktail) = cocktailDao.insert(cocktail)
+    fun addCocktail(cocktail: CocktailRoom) = cocktailDao.insert(cocktail)
 
-    fun updateCocktail(cocktail: Cocktail) = cocktailDao.updateCocktail(cocktail)
+    fun updateCocktail(cocktail: CocktailRoom) = cocktailDao.updateCocktail(cocktail)
 
     companion object {
 

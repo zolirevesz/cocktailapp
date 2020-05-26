@@ -8,6 +8,8 @@ object LoginStarted : LoginViewState()
 
 object Loading: LoginViewState()
 
+object LoginReady: LoginViewState()
+
 data class LoginSuccessful(val user: User): LoginViewState()
 
 object LoginUnsuccessful: LoginViewState()

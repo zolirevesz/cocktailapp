@@ -12,7 +12,11 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_nav_home_to_detailFragment"
-            app:destination="@id/detailFragment" />
+            app:destination="@id/detailFragment">
+            <argument
+                android:name="cocktailId"
+                app:argType="Int" />
+        </action>
     </fragment>
 
     <fragment
@@ -22,16 +26,22 @@
         tools:layout="@layout/fragment_search" >
         <action
             android:id="@+id/action_nav_search_to_detailFragment"
-            app:destination="@id/detailFragment" />
+            app:destination="@id/detailFragment" >
+            <argument
+                android:name="cocktailId"
+                app:argType="Int" />
+        </action>
+
     </fragment>
 
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.hnpper.cocktailapp.ui.detail.DetailFragment"
-        android:label="DetailFragment" >
+        android:label="DetailFragment"
+        tools:layout="@layout/fragment_detail" >
         <argument
-            android:name="idDrink"
-            app:argType="integer" />
+            android:name="cocktailId"
+            app:argType="Int" />
     </fragment>
 
     <fragment
@@ -39,6 +49,17 @@
         android:name="com.hnpper.cocktailapp.ui.login.LoginFragment"
         android:label="@string/menu_login"
         tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_nav_login_to_nav_registration"
+            app:destination="@id/nav_registration" />
     </fragment>
+
+    <fragment
+        android:id="@+id/nav_registration"
+        android:name="com.hnpper.cocktailapp.ui.registration.RegistrationFragment"
+        android:label="@string/menu_registration"
+        tools:layout="@layout/fragment_registration" >
+    </fragment>
+
 
 </navigation>

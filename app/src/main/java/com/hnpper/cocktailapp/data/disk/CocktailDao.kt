@@ -13,10 +13,10 @@ interface CocktailDao {
     @Insert
     fun insert(cocktail : CocktailRoom)
 
-    @Query("SELECT * FROM Cocktail")
-    fun getAll(): List<Cocktail>
+    @Query("SELECT * FROM CocktailRoom")
+    fun getAll(): List<CocktailRoom>
 
-    @Query("SELECT * FROM Cocktail WHERE idDrink = :id")
+    @Query("SELECT * FROM CocktailRoom WHERE idDrink = :id")
     fun getCocktailById(id : Int): CocktailRoom
 
     @Update

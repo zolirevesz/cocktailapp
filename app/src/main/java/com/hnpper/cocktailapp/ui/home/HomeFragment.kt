@@ -5,6 +5,8 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.zsmb.rainbowcake.base.RainbowCakeFragment
 import co.zsmb.rainbowcake.dagger.getViewModelFromFactory
@@ -73,11 +75,7 @@ class HomeFragment :
                     "Logged out of app!",
                     Toast.LENGTH_SHORT
                 ).show()
-
-                navigator?.run {
-                    setStack(LoginFragment())
-                    executePending()
-                }
+                findNavController().navigate(R.id.nav_login)
             }
         }
     }
@@ -93,7 +91,7 @@ class HomeFragment :
 
         for (cocktailId in currentUser.favCocktailsId) {
             GlobalScope.launch(Dispatchers.IO) {
-                list.add(webservice.getCocktailById(cocktailId, "1"))
+                list.add(webservice.getCocktailById(cocktailId))
             }
         }
 
@@ -101,6 +99,7 @@ class HomeFragment :
     }
 
     override fun onCocktailClicked(cocktail: Cocktail) {
-       navigator?.add(DetailFragment(cocktail))
+        val bundle = bundleOf("cocktailId" to cocktail.idDrink)
+        findNavController().navigate(R.id.detailFragment, bundle)
     }
 }

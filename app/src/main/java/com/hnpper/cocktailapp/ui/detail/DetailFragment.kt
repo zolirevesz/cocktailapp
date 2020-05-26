@@ -22,16 +22,17 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_detail.*
 import javax.inject.Inject
 
-class DetailFragment @Inject constructor(
-    private val cocktail : Cocktail
-): RainbowCakeFragment<DetailViewState, DetailViewModel>() {
+class DetailFragment : RainbowCakeFragment<DetailViewState, DetailViewModel>() {
     override fun provideViewModel() = getViewModelFromFactory()
     override fun getViewResource() = R.layout.fragment_detail
+
+    private lateinit var cocktail: Cocktail
 
     private lateinit var currentUser : User
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        cocktail = viewModel.getCocktail(arguments?.getInt("cocktailId") as Int)
     }
 
     override fun render(viewState: DetailViewState) {

@@ -20,7 +20,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.random.Random
 
-@Database(entities = [Cocktail::class], version = 1, exportSchema = false)
+@Database(entities = [CocktailRoom::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class CocktailRoomDatabase : RoomDatabase() {
     abstract fun cocktailDao(): CocktailDao
@@ -49,7 +49,7 @@ abstract class CocktailRoomDatabase : RoomDatabase() {
                         super.onCreate(db)
                         GlobalScope.launch(Dispatchers.IO) {
                             val responseList: ResponseList =
-                                webservice.getList("1")
+                                webservice.getList()
                             getInstance(context).cocktailDao().insertAll(
                                 responseToCocktail(responseList)
                             )
