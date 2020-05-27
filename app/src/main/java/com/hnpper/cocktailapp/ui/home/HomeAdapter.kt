@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.hnpper.cocktailapp.R
 import com.hnpper.cocktailapp.model.Cocktail
-import com.hnpper.cocktailapp.databinding.ListItemCardBinding
 import com.hnpper.cocktailapp.utilities.CocktailComparator
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.list_item_card.view.*

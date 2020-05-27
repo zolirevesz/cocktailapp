@@ -61,6 +61,7 @@ class DetailFragment : RainbowCakeFragment<DetailViewState, DetailViewModel>() {
                 fab.setOnClickListener{
                     viewState.user.favCocktailsId.add(cocktail.idDrink)
                     viewModel.saveUser(viewState.user, viewState.user.password, Uri.parse(viewState.user.photoImageUrl))
+                    fab.visibility = View.GONE
                 }
             }
         }

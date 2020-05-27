@@ -10,13 +10,10 @@
         android:name="com.hnpper.cocktailapp.ui.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" >
+
         <action
             android:id="@+id/action_nav_home_to_detailFragment"
-            app:destination="@id/detailFragment">
-            <argument
-                android:name="cocktailId"
-                app:argType="integer" />
-        </action>
+            app:destination="@id/detailFragment" />
     </fragment>
 
     <fragment
@@ -24,14 +21,10 @@
         android:name="com.hnpper.cocktailapp.ui.search.SearchFragment"
         android:label="@string/menu_search"
         tools:layout="@layout/fragment_search" >
+
         <action
             android:id="@+id/action_nav_search_to_detailFragment"
-            app:destination="@id/detailFragment" >
-            <argument
-                android:name="cocktailId"
-                app:argType="integer" />
-        </action>
-
+            app:destination="@id/detailFragment" />
     </fragment>
 
     <fragment
