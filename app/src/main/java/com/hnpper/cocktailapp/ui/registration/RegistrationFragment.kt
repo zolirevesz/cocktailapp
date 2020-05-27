@@ -18,6 +18,7 @@ import com.hnpper.cocktailapp.model.User
 import com.hnpper.cocktailapp.ui.home.HomeFragment
 import com.hnpper.cocktailapp.utilities.RegexProvider
 import kotlinx.android.synthetic.main.fragment_registration.*
+import kotlin.random.Random
 
 class RegistrationFragment : RainbowCakeFragment<RegistrationViewState, RegistrationViewModel>() {
 
@@ -79,10 +80,17 @@ class RegistrationFragment : RainbowCakeFragment<RegistrationViewState, Registra
             }
 
             if (isValid) {
+                user.id = Random.nextInt().toString()
+                user.name = tietName.text.toString()
                 user.email = email
+                user.password = password
                 userPassword = password
 
+                viewModel.registerWithEmail(user, userPassword, Uri.parse(""))
+                findNavController().navigate(R.id.nav_home)
             }
+
+
         }
     }
 
@@ -90,10 +98,7 @@ class RegistrationFragment : RainbowCakeFragment<RegistrationViewState, Registra
         when (viewState) {
             is RegistrationReady -> {
                 progressBar.visibility = View.GONE
-                btnRegister.setOnClickListener{
-                    viewModel.registerWithEmail(user, userPassword, Uri.parse(""))
-                    findNavController().navigate(R.id.nav_home)
-                }
+
             }
             is RegistrationFailed -> {
                 progressBar.visibility = View.GONE

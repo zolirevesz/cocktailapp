@@ -14,4 +14,8 @@ class HomePresenter @Inject constructor(private val firebaseInteractor: Firebase
     suspend fun logout(): Boolean = withIOContext {
         firebaseInteractor.logout()
     }
+
+    suspend fun existActiveUser(): Boolean = withIOContext {
+        firebaseInteractor.existActiveUser()
+    }
 }

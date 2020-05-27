@@ -15,6 +15,7 @@ import com.hnpper.cocktailapp.R
 import com.hnpper.cocktailapp.ui.home.HomeFragment
 import com.hnpper.cocktailapp.ui.registration.RegistrationFragment
 import kotlinx.android.synthetic.main.fragment_login.*
+import kotlinx.android.synthetic.main.nav_header_main.*
 
 class LoginFragment : RainbowCakeFragment<LoginViewState, LoginViewModel>() {
 
@@ -50,38 +51,30 @@ class LoginFragment : RainbowCakeFragment<LoginViewState, LoginViewModel>() {
         tvRegister.setOnClickListener {
            findNavController().navigate(R.id.nav_registration)
 
-            //navigator?.add(RegistrationFragment())
-
-            //startActivityForResult(..)
         }
     }
 
     override fun render(viewState: LoginViewState) {
         when (viewState) {
             is LoginStarted -> {
+                progressBarLogin.visibility = View.GONE
             }
             is LoginReady -> {
-                progressBarLogin.visibility = View.GONE
+
             }
             is LoginSuccessful -> {
                 progressBarLogin.visibility = View.GONE
-
+                username.text = viewState.user.name
+                usermail.text = viewState.user.email
                 findNavController().navigate(R.id.nav_home)
 
-                /*
-                navigator?.run {
-                    setStack(HomeFragment())
-                    executePending()
-
-                }
-                 */
             }
             is LoginUnsuccessful -> {
                 progressBarLogin.visibility = View.GONE
 
                 Toast.makeText(
                     requireContext(),
-                    "Hiba történt!",
+                    "Failure!",
                     Toast.LENGTH_SHORT
                 ).show()
             }

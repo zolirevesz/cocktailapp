@@ -15,7 +15,7 @@
             app:destination="@id/detailFragment">
             <argument
                 android:name="cocktailId"
-                app:argType="Int" />
+                app:argType="integer" />
         </action>
     </fragment>
 
@@ -29,7 +29,7 @@
             app:destination="@id/detailFragment" >
             <argument
                 android:name="cocktailId"
-                app:argType="Int" />
+                app:argType="integer" />
         </action>
 
     </fragment>
@@ -41,7 +41,7 @@
         tools:layout="@layout/fragment_detail" >
         <argument
             android:name="cocktailId"
-            app:argType="Int" />
+            app:argType="integer" />
     </fragment>
 
     <fragment

@@ -19,6 +19,7 @@ import com.hnpper.cocktailapp.remote.RemoteServiceInterface
 import com.hnpper.cocktailapp.ui.detail.DetailFragment
 import com.hnpper.cocktailapp.ui.login.LoginFragment
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.nav_header_main.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -63,9 +64,16 @@ class HomeFragment :
             is Loading -> {
                 progressBar.visibility = View.VISIBLE
             }
+            is HomeWithoutLogin -> {
+                username?.text = "User"
+                usermail?.text = "user@example.com"
+                ivSignOut.visibility = View.GONE
+                findNavController().navigate(R.id.nav_login)
+            }
             is HomeLoaded -> {
                 tvName.text = viewState.user.name
                 currentUser = viewState.user
+                ivSignOut.visibility = View.VISIBLE
                 val cocktails: MutableList<Cocktail> = getCocktailList()
                 homeAdapter.submitList(cocktails)
             }
@@ -75,6 +83,9 @@ class HomeFragment :
                     "Logged out of app!",
                     Toast.LENGTH_SHORT
                 ).show()
+                username?.text = "User"
+                usermail?.text = "user@example.com"
+                ivSignOut.visibility = View.GONE
                 findNavController().navigate(R.id.nav_login)
             }
         }

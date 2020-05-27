@@ -1,5 +1,6 @@
 package com.hnpper.cocktailapp.ui.home
 
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,8 +19,12 @@ class HomeViewModel @Inject constructor(
 
     fun loadData() = execute {
         viewState = Loading
-        viewState =
-            HomeLoaded(homePresenter.getUser())
+        if (homePresenter.existActiveUser()) {
+            viewState = HomeLoaded(homePresenter.getUser())
+        } else {
+            viewState = HomeWithoutLogin
+        }
+
     }
 
     fun logout() = execute {

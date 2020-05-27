@@ -23,9 +23,9 @@ data class UserRoom (
 
 data class User (
     var id : String,
-    val name : String,
+    var name : String,
     var email: String,
-    val password : String,
+    var password : String,
     var photoImageUrl: String?,
-    val favCocktailsId : MutableList<Int>
+    var favCocktailsId : MutableList<Int>
 ) : Serializable

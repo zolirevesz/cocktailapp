@@ -18,6 +18,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.hnpper.cocktailapp.model.User
 import com.hnpper.cocktailapp.ui.login.LoginFragment
+import kotlinx.android.synthetic.main.nav_header_main.*
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
@@ -48,7 +49,6 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
 
     }
 

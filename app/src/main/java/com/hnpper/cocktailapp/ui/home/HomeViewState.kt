@@ -10,3 +10,5 @@ object Loading : HomeViewState()
 data class HomeLoaded(val user : User) : HomeViewState()
 
 object LoggedOut : HomeViewState()
+
+object HomeWithoutLogin : HomeViewState()
