@@ -9,6 +9,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import co.zsmb.rainbowcake.base.RainbowCakeFragment
 import co.zsmb.rainbowcake.dagger.getViewModelFromFactory
 import co.zsmb.rainbowcake.navigation.navigator
@@ -39,6 +40,7 @@ SearchAdapter.Listener {
 
         sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
         cocktailList= mutableListOf()
+        addDummyCocktail()
         initAdapter()
 
 
@@ -51,7 +53,7 @@ SearchAdapter.Listener {
 
     private fun initAdapter() {
         rvSearch.adapter = searchAdapter
-        rvSearch.layoutManager = LinearLayoutManager(requireContext())
+        rvSearch.layoutManager = LinearLayoutManager(requireContext()) as RecyclerView.LayoutManager
         searchAdapter.listener = this
         searchAdapter.submitList(cocktailList)
     }
@@ -65,7 +67,7 @@ SearchAdapter.Listener {
                 progressBar.visibility = View.GONE
                 btnSearch.setOnClickListener {
                     val searchName = etSearchName.text.toString()
-                    var searchList = viewModel.loadSearch(searchName)
+                    viewModel.loadSearch(searchName)
                 }
             }
             is GetSearchResult -> {
@@ -85,4 +87,10 @@ SearchAdapter.Listener {
         val bundle = bundleOf("cocktailId" to cocktail.idDrink)
         findNavController().navigate(R.id.detailFragment, bundle)
     }
+
+    private fun addDummyCocktail() {
+        cocktailList.add(Cocktail(1,"Dummy","jo", "alcoholic", "uveg", "Razd ossze", "so", "bors", "citrom", "","","","","","","","","","","","","https://cdn.diffords.com/contrib/stock-images/2017/1/37/20177e6f84ec35b29061cd85c72d3d1011c5.jpg" ))
+    }
+
+
 }

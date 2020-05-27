@@ -1,55 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="8dp"
+    android:background="@drawable/bg_item">
 
-    <data>
-        <variable name="clickListener" type="android.view.View.OnClickListener"/>
-        <variable name="cocktail" type="com.hnpper.cocktailapp.model.Cocktail"/>
-    </data>
+    <ImageView
+        android:id="@+id/ivCocktail"
+        android:layout_width="54dp"
+        android:layout_height="45dp"
+        android:contentDescription="@string/image_of_cocktail"
+        android:scaleType="centerInside"
+        android:src="@drawable/cocktail_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
 
-    <com.hnpper.cocktailapp.view.MaskedCardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/card_side_margin"
-        android:layout_marginEnd="@dimen/card_side_margin"
-        android:layout_marginBottom="@dimen/card_bottom_margin"
-        app:cardElevation="@dimen/card_elevation"
-        app:cardPreventCornerOverlap="false"
-        app:shapeAppearanceOverlay="@style/ShapeAppearance.Cocktail.Card">
+    <TextView
+        android:id="@+id/tvCocktailName"
+        android:layout_width="318dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="64dp"
+        android:text="Cocktail name"
+        android:textAlignment="viewStart"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/ivCocktail"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/ivCocktail"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/cocktail_item_image_height"
-                android:contentDescription="@string/image_of_cocktail"
-                android:scaleType="centerCrop"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/cocktail_image"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/tvCocktailName"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_normal"
-                android:layout_marginTop="@dimen/margin_normal"
-                android:text="@{cocktail.strDrink}"
-                android:textAppearance="?attr/textAppearanceListItem"
-                android:gravity="center_horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ivCocktail"
-                app:layout_constraintBottom_toBottomOf="parent"
-                tools:text="Cocktail"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </com.hnpper.cocktailapp.view.MaskedCardView>
-
-</layout>
