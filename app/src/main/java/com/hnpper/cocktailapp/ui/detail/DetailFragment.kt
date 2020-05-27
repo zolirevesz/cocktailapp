@@ -33,6 +33,7 @@ class DetailFragment : RainbowCakeFragment<DetailViewState, DetailViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         cocktail = viewModel.getCocktail(arguments?.getInt("cocktailId") as Int)
+        // cocktail = getDummy()
     }
 
     override fun render(viewState: DetailViewState) {
@@ -134,5 +135,9 @@ class DetailFragment : RainbowCakeFragment<DetailViewState, DetailViewModel>() {
         fab.hide()
     }
 
+
+    private fun getDummy() : Cocktail {
+        return Cocktail(1,"Dummy","jo", "alcoholic", "uveg", "Razd ossze", "so", "bors", "citrom", "","","","","","","","","","","","","https://cdn.diffords.com/contrib/stock-images/2017/1/37/20177e6f84ec35b29061cd85c72d3d1011c5.jpg" )
+    }
 
 }

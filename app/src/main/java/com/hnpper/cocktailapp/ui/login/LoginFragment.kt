@@ -50,7 +50,6 @@ class LoginFragment : RainbowCakeFragment<LoginViewState, LoginViewModel>() {
 
         tvRegister.setOnClickListener {
            findNavController().navigate(R.id.nav_registration)
-
         }
     }
 
@@ -66,8 +65,7 @@ class LoginFragment : RainbowCakeFragment<LoginViewState, LoginViewModel>() {
                 progressBarLogin.visibility = View.GONE
                 username.text = viewState.user.name
                 usermail.text = viewState.user.email
-                findNavController().navigate(R.id.nav_home)
-
+                findNavController().navigate(R.id.nav_search)
             }
             is LoginUnsuccessful -> {
                 progressBarLogin.visibility = View.GONE

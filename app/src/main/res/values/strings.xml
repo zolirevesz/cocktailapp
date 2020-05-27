@@ -29,4 +29,5 @@
     <string name="btnsearch">Search</string>
     <string name="menu_registration">Registration</string>
     <string name="menu_detail">Details</string>
+    <string name="imageDescription">Image of Cocktail</string>
 </resources>

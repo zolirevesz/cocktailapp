@@ -18,12 +18,14 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.hnpper.cocktailapp.model.User
 import com.hnpper.cocktailapp.ui.login.LoginFragment
+import com.hnpper.cocktailapp.utilities.PermissionsRequestor
 import kotlinx.android.synthetic.main.nav_header_main.*
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var permissionsRequestor: PermissionsRequestor
 
     companion object {
         lateinit var user: User
@@ -36,6 +38,8 @@ class MainActivity : AppCompatActivity() {
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+
+        handleAndroidPermissions()
 
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
@@ -55,6 +59,37 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    private fun handleAndroidPermissions() {
+        permissionsRequestor = PermissionsRequestor(this)
+        permissionsRequestor.request(object : PermissionsRequestor.ResultListener {
+            override fun permissionsGranted() {
+                val sharedPref = getPreferences(Context.MODE_PRIVATE) ?: return
+                with(sharedPref.edit()) {
+                    putBoolean(getString(R.string.permissions_granted), true)
+                    commit()
+                }
+            }
+
+            override fun permissionsDenied() {
+                val sharedPref = getPreferences(Context.MODE_PRIVATE) ?: return
+                with(sharedPref.edit()) {
+                    putBoolean(getString(R.string.permissions_granted), false)
+                    commit()
+                }
+            }
+        })
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        permissionsRequestor.onRequestPermissionsResult(requestCode, grantResults)
     }
 
 }
