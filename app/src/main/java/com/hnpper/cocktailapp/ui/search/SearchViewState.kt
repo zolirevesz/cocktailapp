@@ -5,3 +5,7 @@ sealed class SearchViewState
 object Loading: SearchViewState()
 
 object Loaded: SearchViewState()
+
+object GetSearchResult: SearchViewState()
+
+object SearchLoaded: SearchViewState()

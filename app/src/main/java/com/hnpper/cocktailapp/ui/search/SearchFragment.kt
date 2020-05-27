@@ -41,17 +41,6 @@ SearchAdapter.Listener {
         cocktailList= mutableListOf()
         initAdapter()
 
-        etSearchName.text
-
-
-        btnSearch.setOnClickListener {
-            val searchName = etSearchName.text.toString()
-            for (cocktail in searchCocktails(searchName)) {
-                cocktailList.add(cocktail)
-                searchAdapter.notifyItemChanged(cocktailList.size - 1)
-            }
-
-        }
 
     }
 
@@ -74,28 +63,22 @@ SearchAdapter.Listener {
             }
             is Loaded -> {
                 progressBar.visibility = View.GONE
-
-
+                btnSearch.setOnClickListener {
+                    val searchName = etSearchName.text.toString()
+                    var searchList = viewModel.loadSearch(searchName)
+                }
+            }
+            is GetSearchResult -> {
+                progressBar.visibility = View.VISIBLE
+            }
+            is SearchLoaded -> {
+                progressBar.visibility = View.GONE
+                for (cocktail in viewModel.cocktailList) {
+                    cocktailList.add(cocktail)
+                    searchAdapter.notifyItemChanged(cocktailList.size - 1)
+                }
             }
         }
-    }
-
-    private fun searchCocktails(name : String) : MutableList<Cocktail> {
-        var list : MutableList<Cocktail> = mutableListOf()
-        var responselist : ResponseList = ResponseList(mutableListOf<Cocktail>())
-        val webservice by lazy {
-            Retrofit.Builder()
-                .baseUrl("https://www.thecocktaildb.com/api/json/v1/1/")
-                .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
-                .build().create(RemoteServiceInterface::class.java)
-        }
-
-        GlobalScope.launch {
-            responselist = webservice.getCocktails(name)
-        }
-
-        list = responselist.cocktailList
-        return list
     }
 
     override fun onCocktailClicked(cocktail: Cocktail) {
