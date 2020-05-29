@@ -61,7 +61,7 @@ abstract class CocktailRoomDatabase : RoomDatabase() {
 
         private fun responseToCocktail(list: ResponseList): List<CocktailRoom> {
             var resultList: MutableList<CocktailRoom> = mutableListOf()
-            for (item: Cocktail in list.cocktailList) {
+            for (item: Cocktail in list.drinks) {
                 resultList.add(
                     CocktailRoom(item.idDrink, item.strDrink, item.strCategory as String, item.strAlcoholic as String, item.strGlass as String, item.strInstruction as String,
                     listOf(item.strIngredient1 as String, item.strIngredient2 as String, item.strIngredient3 as String, item.strIngredient4 as String, item.strIngredient5 as String, item.strIngredient6 as String, item.strIngredient7 as String, item.strIngredient8 as String,

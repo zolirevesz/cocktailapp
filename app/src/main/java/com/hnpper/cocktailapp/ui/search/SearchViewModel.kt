@@ -18,7 +18,7 @@ class SearchViewModel @Inject constructor(
         viewState = GetSearchResult
         cocktailList = listOf()
         val responselist = searchPresenter.getCocktailsByName(name)
-        cocktailList = responselist.cocktailList
+        cocktailList = responselist.drinks
         if (cocktailList.isNotEmpty()) {
             viewState = SearchLoaded
         } else {
