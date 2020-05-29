@@ -73,10 +73,12 @@ SearchAdapter.Listener {
             }
             is SearchLoaded -> {
                 progressBar.visibility = View.GONE
+                cocktailList.clear()
                 for (cocktail in viewModel.cocktailList) {
                     cocktailList.add(cocktail)
-                    searchAdapter.notifyItemChanged(cocktailList.size - 1)
                 }
+                searchAdapter.submitList(cocktailList)
+                searchAdapter.notifyDataSetChanged()
             }
         }
     }

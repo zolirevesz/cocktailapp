@@ -57,6 +57,7 @@ class HomeFragment :
         rvCocktails.adapter = homeAdapter
         rvCocktails.layoutManager = LinearLayoutManager(requireContext())
         homeAdapter.listener = this
+
     }
 
     override fun render(viewState: HomeViewState) {
@@ -65,19 +66,26 @@ class HomeFragment :
                 progressBar.visibility = View.VISIBLE
             }
             is HomeWithoutLogin -> {
+                progressBar.visibility = View.GONE
                 username?.text = "User"
                 usermail?.text = "user@example.com"
                 ivSignOut.visibility = View.GONE
                 findNavController().navigate(R.id.nav_login)
             }
             is HomeLoaded -> {
+                progressBar.visibility = View.GONE
                 tvName.text = viewState.user.name
                 currentUser = viewState.user
+
+                username?.text = currentUser.name
+                usermail?.text = currentUser.email
+
                 ivSignOut.visibility = View.VISIBLE
-                //val cocktails: MutableList<Cocktail> = getCocktailList()
-                //homeAdapter.submitList(cocktails)
+                homeAdapter.submitList(viewModel.cocktailList)
+                homeAdapter.notifyDataSetChanged()
             }
             is LoggedOut -> {
+                progressBar.visibility = View.GONE
                 Toast.makeText(
                     requireContext(),
                     "Logged out of app!",
@@ -89,24 +97,6 @@ class HomeFragment :
                 findNavController().navigate(R.id.nav_login)
             }
         }
-    }
-
-    private fun getCocktailList() : MutableList<Cocktail> {
-        var list : MutableList<Cocktail> = mutableListOf()
-        val webservice by lazy {
-            Retrofit.Builder()
-                .baseUrl("https://www.thecocktaildb.com/api/json/v1/")
-                .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
-                .build().create(RemoteServiceInterface::class.java)
-        }
-
-        for (cocktailId in currentUser.favCocktailsId!!) {
-            GlobalScope.launch {
-                list.add(webservice.getCocktailById(cocktailId).drinks[0])
-            }
-        }
-
-        return list
     }
 
     override fun onCocktailClicked(cocktail: Cocktail) {
