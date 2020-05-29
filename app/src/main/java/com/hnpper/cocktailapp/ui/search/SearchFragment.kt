@@ -40,10 +40,8 @@ SearchAdapter.Listener {
 
         sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
         cocktailList= mutableListOf()
-        addDummyCocktail()
+        //addDummyCocktail()
         initAdapter()
-
-
     }
 
     override fun onStart() {

@@ -31,8 +31,8 @@ class DetailFragment : RainbowCakeFragment<DetailViewState, DetailViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //cocktail = viewModel.getCocktail(arguments?.getInt("cocktailId") as Int)
-        cocktail = getDummy()
+        cocktail = viewModel.getCocktail(arguments?.getInt("cocktailId") as Int)
+        //cocktail = getDummy()
     }
 
     override fun render(viewState: DetailViewState) {
