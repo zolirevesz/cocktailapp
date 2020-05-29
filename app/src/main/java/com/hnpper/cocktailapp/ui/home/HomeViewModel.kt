@@ -29,7 +29,6 @@ class HomeViewModel @Inject constructor(
             if (!user.favCocktailsId.isNullOrEmpty()) {
                 loadList(user.favCocktailsId!!)
             }
-            viewState = HomeLoaded(user)
         } else {
             viewState = HomeWithoutLogin
         }
@@ -40,6 +39,7 @@ class HomeViewModel @Inject constructor(
         for (id in favCocktailsId) {
                 cocktailList.add(homePresenter.getCocktailById(id))
         }
+        viewState = HomeLoaded(homePresenter.getUser())
     }
 
     fun logout() = execute {

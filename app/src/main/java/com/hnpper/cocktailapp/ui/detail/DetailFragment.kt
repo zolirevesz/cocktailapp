@@ -47,6 +47,7 @@ class DetailFragment : RainbowCakeFragment<DetailViewState, DetailViewModel>() {
                 Picasso.get().load(viewModel.cocktail.strDrinkThumb).into(imgCocktail)
                 tvCocktailName.setText(viewModel.cocktail.strDrink)
                 tvCategory.setText(viewModel.cocktail.strCategory)
+                tvAlcoholic.setText(viewModel.cocktail.strAlcoholic)
                 tvGlass.setText(viewModel.cocktail.strGlass)
                 tvIngredients.setText(createIngredientList())
                 tvInstruction.setText(viewModel.cocktail.strInstructions)
