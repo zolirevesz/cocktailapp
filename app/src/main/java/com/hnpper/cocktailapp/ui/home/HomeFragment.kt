@@ -74,8 +74,8 @@ class HomeFragment :
                 tvName.text = viewState.user.name
                 currentUser = viewState.user
                 ivSignOut.visibility = View.VISIBLE
-                val cocktails: MutableList<Cocktail> = getCocktailList()
-                homeAdapter.submitList(cocktails)
+                //val cocktails: MutableList<Cocktail> = getCocktailList()
+                //homeAdapter.submitList(cocktails)
             }
             is LoggedOut -> {
                 Toast.makeText(
@@ -100,7 +100,7 @@ class HomeFragment :
                 .build().create(RemoteServiceInterface::class.java)
         }
 
-        for (cocktailId in currentUser.favCocktailsId) {
+        for (cocktailId in currentUser.favCocktailsId!!) {
             GlobalScope.launch {
                 list.add(webservice.getCocktailById(cocktailId))
             }

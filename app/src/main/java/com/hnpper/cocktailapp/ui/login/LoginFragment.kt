@@ -63,8 +63,9 @@ class LoginFragment : RainbowCakeFragment<LoginViewState, LoginViewModel>() {
             }
             is LoginSuccessful -> {
                 progressBarLogin.visibility = View.GONE
-                username.text = viewState.user.name
-                usermail.text = viewState.user.email
+                //username.text = viewState.user.name
+                //usermail.text = viewState.user.email
+
                 findNavController().navigate(R.id.nav_search)
             }
             is LoginUnsuccessful -> {

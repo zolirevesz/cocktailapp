@@ -15,7 +15,6 @@ import co.zsmb.rainbowcake.dagger.getViewModelFromFactory
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.hnpper.cocktailapp.R
-import com.hnpper.cocktailapp.databinding.FragmentDetailBinding
 import com.hnpper.cocktailapp.model.Cocktail
 import com.hnpper.cocktailapp.model.User
 import com.squareup.picasso.Picasso
@@ -32,14 +31,15 @@ class DetailFragment : RainbowCakeFragment<DetailViewState, DetailViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        cocktail = viewModel.getCocktail(arguments?.getInt("cocktailId") as Int)
-        // cocktail = getDummy()
+        //cocktail = viewModel.getCocktail(arguments?.getInt("cocktailId") as Int)
+        cocktail = getDummy()
     }
 
     override fun render(viewState: DetailViewState) {
         when (viewState) {
             is Loading -> {
                 progressBar.visibility = View.VISIBLE
+                viewModel.load()
             }
             is Loaded -> {
                 progressBar.visibility = View.GONE
@@ -54,15 +54,25 @@ class DetailFragment : RainbowCakeFragment<DetailViewState, DetailViewModel>() {
                 tvInstruction.setText(cocktail.strInstruction)
 
                 if(isCocktailAdded()) {
-                    fab.visibility = View.GONE
+                    fabAdd.visibility = View.GONE
+                    fabRemove.visibility = View.VISIBLE
                 } else {
-                    fab.visibility = View.VISIBLE
+                    fabAdd.visibility = View.VISIBLE
+                    fabRemove.visibility = View.GONE
                 }
 
-                fab.setOnClickListener{
-                    viewState.user.favCocktailsId.add(cocktail.idDrink)
+                fabAdd.setOnClickListener{
+                    viewState.user.favCocktailsId?.add(cocktail.idDrink)
                     viewModel.saveUser(viewState.user, viewState.user.password, Uri.parse(viewState.user.photoImageUrl))
-                    fab.visibility = View.GONE
+                    fabAdd.visibility = View.GONE
+                    fabRemove.visibility = View.VISIBLE
+                }
+
+                fabRemove.setOnClickListener{
+                    viewState.user.favCocktailsId!!.removeAt(viewState.user.favCocktailsId!!.indexOf(cocktail.idDrink)+1) // miért -1 az index ha a méret 1, és annak az egy elemnek az indexét keresem?
+                    viewModel.saveUser(viewState.user, viewState.user.password, Uri.parse(viewState.user.photoImageUrl))
+                    fabAdd.visibility = View.VISIBLE
+                    fabRemove.visibility = View.GONE
                 }
             }
         }
@@ -71,57 +81,57 @@ class DetailFragment : RainbowCakeFragment<DetailViewState, DetailViewModel>() {
     private fun createIngredientList(): String {
         var ingredientString: String = ""
 
-        if (cocktail.strIngredient1 != null) {
-            ingredientString.plus(cocktail.strIngredient1)
+        if (!cocktail.strIngredient1.isNullOrEmpty()) {
+            ingredientString += cocktail.strIngredient1
         }
-        if (cocktail.strIngredient2 != null) {
-            ingredientString.plus(", " + cocktail.strIngredient2)
+        if (!cocktail.strIngredient2.isNullOrEmpty()) {
+            ingredientString += ", " + cocktail.strIngredient2
         }
-        if (cocktail.strIngredient3 != null) {
-            ingredientString.plus(", " + cocktail.strIngredient3)
+        if (!cocktail.strIngredient3.isNullOrEmpty()) {
+            ingredientString += ", " + cocktail.strIngredient3
         }
-        if (cocktail.strIngredient4 != null) {
-            ingredientString.plus(", " + cocktail.strIngredient4)
+        if (!cocktail.strIngredient4.isNullOrEmpty()) {
+            ingredientString += ", " + cocktail.strIngredient4
         }
-        if (cocktail.strIngredient5 != null) {
-            ingredientString.plus(", " + cocktail.strIngredient5)
+        if (!cocktail.strIngredient5.isNullOrEmpty()) {
+            ingredientString += ", " + cocktail.strIngredient5
         }
-        if (cocktail.strIngredient6 != null) {
-            ingredientString.plus(", " + cocktail.strIngredient6)
+        if (!cocktail.strIngredient6.isNullOrEmpty()) {
+            ingredientString += ", " + cocktail.strIngredient6
         }
-        if (cocktail.strIngredient7 != null) {
-            ingredientString.plus(", " + cocktail.strIngredient7)
+        if (!cocktail.strIngredient7.isNullOrEmpty()) {
+            ingredientString += ", " + cocktail.strIngredient7
         }
-        if (cocktail.strIngredient8 != null) {
-            ingredientString.plus(", " + cocktail.strIngredient8)
+        if (!cocktail.strIngredient8.isNullOrEmpty()) {
+            ingredientString += ", " + cocktail.strIngredient8
         }
-        if (cocktail.strIngredient9 != null) {
-            ingredientString.plus(", " + cocktail.strIngredient9)
+        if (!cocktail.strIngredient9.isNullOrEmpty()) {
+            ingredientString += ", " + cocktail.strIngredient9
         }
-        if (cocktail.strIngredient10 != null) {
-            ingredientString.plus(", " + cocktail.strIngredient10)
+        if (!cocktail.strIngredient10.isNullOrEmpty()) {
+            ingredientString += ", " + cocktail.strIngredient10
         }
-        if (cocktail.strIngredient11 != null) {
-            ingredientString.plus(", " + cocktail.strIngredient11)
+        if (!cocktail.strIngredient11.isNullOrEmpty()) {
+            ingredientString += ", " + cocktail.strIngredient11
         }
-        if (cocktail.strIngredient12 != null) {
-            ingredientString.plus(", " + cocktail.strIngredient12)
+        if (!cocktail.strIngredient12.isNullOrEmpty()) {
+            ingredientString += ", " + cocktail.strIngredient12
         }
-        if (cocktail.strIngredient13 != null) {
-            ingredientString.plus(", " + cocktail.strIngredient13)
+        if (!cocktail.strIngredient13.isNullOrEmpty()) {
+            ingredientString += ", " + cocktail.strIngredient13
         }
-        if (cocktail.strIngredient14 != null) {
-            ingredientString.plus(", " + cocktail.strIngredient14)
+        if (!cocktail.strIngredient14.isNullOrEmpty()) {
+            ingredientString += ", " + cocktail.strIngredient14
         }
-        if (cocktail.strIngredient15 != null) {
-            ingredientString.plus(", " + cocktail.strIngredient15)
+        if (!cocktail.strIngredient15.isNullOrEmpty()) {
+            ingredientString += ", " + cocktail.strIngredient15
         }
 
         return ingredientString
     }
 
     private fun isCocktailAdded(): Boolean {
-        for (cocktailID in currentUser.favCocktailsId) {
+        for (cocktailID in currentUser.favCocktailsId!!) {
             if (cocktailID == cocktail.idDrink)
                 return true
         }

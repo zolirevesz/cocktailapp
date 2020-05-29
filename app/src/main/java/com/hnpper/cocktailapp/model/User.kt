@@ -27,5 +27,5 @@ data class User (
     var email: String,
     var password : String,
     var photoImageUrl: String?,
-    var favCocktailsId : MutableList<Int>
+    var favCocktailsId : MutableList<Int>?
 ) : Serializable

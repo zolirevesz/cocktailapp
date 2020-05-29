@@ -173,7 +173,7 @@
         </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/fabAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
@@ -184,5 +184,17 @@
         app:shapeAppearance="@style/ShapeAppearance.Series.FAB"
         app:srcCompat="@drawable/ic_add_black_24dp"
         android:focusable="true" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabRemove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:shapeAppearance="@style/ShapeAppearance.Series.FAB"
+        app:srcCompat="@drawable/ic_remove_black_24dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -175,9 +175,13 @@ class NetworkDataSource @Inject constructor() {
         val password = data["password"] as String
         val email = data["email"] as String
         val photoImageUrl = data["photoImageUrl"] as String?
-        val favList = data["favList"] as MutableList<Int> //convert to list of integers
+        val favList = data["favCocktailsId"] as MutableList<Int>? //convert to list of integers
 
-        user = User(id, name, password, email, photoImageUrl, favList)
+        if (favList.isNullOrEmpty()) {
+            user = User(id, name, password, email, photoImageUrl, mutableListOf<Int>())
+        } else {
+            user = User(id, name, password, email, photoImageUrl, favList)
+        }
 
         return user!!
     }

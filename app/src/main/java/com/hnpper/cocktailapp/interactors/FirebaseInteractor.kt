@@ -14,15 +14,12 @@ class FirebaseInteractor @Inject constructor(
         photoUri: Uri?
     ): Boolean {
         var registerState = false
-        var uploadPhotoState = true
         val firebaseUser = networkDataSource.registerWithEmail(user.email, password)
         if (firebaseUser != null) {
             user.id = firebaseUser.uid
 
-            if (uploadPhotoState) {
-                registerState = networkDataSource.saveUser(user)
+            registerState = networkDataSource.saveUser(user)
 
-            }
         }
         if (!registerState) {
             firebaseUser!!.delete()
