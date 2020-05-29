@@ -20,7 +20,7 @@ data class CocktailRoom (
     @ColumnInfo(name = "glass")
     val strGlass : String?,
     @ColumnInfo(name = "instruction")
-    val strInstruction : String?,
+    val strInstructions : String?,
     @ColumnInfo(name = "ingredients")
     @TypeConverters(Converters::class)
     val strIngredients : List<String>,
@@ -34,7 +34,7 @@ data class Cocktail (
     val strCategory : String?,
     val strAlcoholic : String?,
     val strGlass : String?,
-    val strInstruction : String?,
+    val strInstructions : String?,
     val strIngredient1 : String?,
     val strIngredient2 : String?,
     val strIngredient3 : String?,

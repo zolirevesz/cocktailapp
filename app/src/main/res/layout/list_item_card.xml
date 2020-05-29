@@ -22,8 +22,8 @@
 
     <TextView
         android:id="@+id/tvCocktailName"
-        android:layout_width="318dp"
-        android:layout_height="22dp"
+        android:layout_width="252dp"
+        android:layout_height="23dp"
         android:layout_marginStart="64dp"
         android:text="Cocktail name"
         android:textAlignment="viewStart"

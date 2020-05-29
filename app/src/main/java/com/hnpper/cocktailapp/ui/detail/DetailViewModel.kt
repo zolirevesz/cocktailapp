@@ -16,6 +16,8 @@ class DetailViewModel @Inject constructor(
     private val detailPresenter: DetailPresenter
 ) : JobViewModel<DetailViewState>(Loading) {
 
+    lateinit var cocktail: Cocktail
+
     fun load() = execute {
         viewState =
             Loaded(detailPresenter.getUser())
@@ -27,21 +29,10 @@ class DetailViewModel @Inject constructor(
         viewState = Loaded(detailPresenter.getUser())
     }
 
-    fun getCocktail(id: Int): Cocktail {
-        var cocktail: Cocktail = Cocktail(1,"","","","","","","","","","","","","","","","","","","","","")
-        GlobalScope.launch {
-            cocktail = webservice.getCocktailById(id)
-        }
-        return cocktail
-    }
-
-    companion object{
-        val webservice by lazy {
-            Retrofit.Builder()
-                .baseUrl("https://www.thecocktaildb.com/api/json/v1/")
-                .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
-                .build().create(RemoteServiceInterface::class.java)
-        }
+    fun getCocktail(id: Int) = execute {
+        viewState = Loading
+        cocktail = detailPresenter.getCocktailById(id)
+        viewState = Loaded(detailPresenter.getUser())
     }
 
 

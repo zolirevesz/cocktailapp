@@ -13,7 +13,7 @@ interface RemoteServiceInterface {
     suspend fun getCocktails(@Query("s") name: String): ResponseList
 
     @GET("lookup.php")
-    suspend fun getCocktailById(@Query("i") id: Int): Cocktail
+    suspend fun getCocktailById(@Query("i") id: Int): ResponseList
 
     @GET("search.php?f=a")
     suspend fun getList(): ResponseList

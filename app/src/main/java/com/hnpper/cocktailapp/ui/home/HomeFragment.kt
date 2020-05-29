@@ -102,7 +102,7 @@ class HomeFragment :
 
         for (cocktailId in currentUser.favCocktailsId!!) {
             GlobalScope.launch {
-                list.add(webservice.getCocktailById(cocktailId))
+                list.add(webservice.getCocktailById(cocktailId).drinks[0])
             }
         }
 

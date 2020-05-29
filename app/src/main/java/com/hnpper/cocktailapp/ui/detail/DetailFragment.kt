@@ -25,13 +25,11 @@ class DetailFragment : RainbowCakeFragment<DetailViewState, DetailViewModel>() {
     override fun provideViewModel() = getViewModelFromFactory()
     override fun getViewResource() = R.layout.fragment_detail
 
-    private lateinit var cocktail: Cocktail
-
     private lateinit var currentUser : User
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        cocktail = viewModel.getCocktail(arguments?.getInt("cocktailId") as Int)
+        viewModel.getCocktail(arguments?.getInt("cocktailId") as Int)
         //cocktail = getDummy()
     }
 
@@ -46,12 +44,12 @@ class DetailFragment : RainbowCakeFragment<DetailViewState, DetailViewModel>() {
 
                 currentUser = viewState.user
 
-                Picasso.get().load(cocktail.strDrinkThumb).into(imgCocktail)
-                tvCocktailName.setText(cocktail.strDrink)
-                tvCategory.setText(cocktail.strCategory)
-                tvGlass.setText(cocktail.strGlass)
+                Picasso.get().load(viewModel.cocktail.strDrinkThumb).into(imgCocktail)
+                tvCocktailName.setText(viewModel.cocktail.strDrink)
+                tvCategory.setText(viewModel.cocktail.strCategory)
+                tvGlass.setText(viewModel.cocktail.strGlass)
                 tvIngredients.setText(createIngredientList())
-                tvInstruction.setText(cocktail.strInstruction)
+                tvInstruction.setText(viewModel.cocktail.strInstructions)
 
                 if(isCocktailAdded()) {
                     fabAdd.visibility = View.GONE
@@ -62,14 +60,14 @@ class DetailFragment : RainbowCakeFragment<DetailViewState, DetailViewModel>() {
                 }
 
                 fabAdd.setOnClickListener{
-                    viewState.user.favCocktailsId?.add(cocktail.idDrink)
+                    viewState.user.favCocktailsId?.add(viewModel.cocktail.idDrink)
                     viewModel.saveUser(viewState.user, viewState.user.password, Uri.parse(viewState.user.photoImageUrl))
                     fabAdd.visibility = View.GONE
                     fabRemove.visibility = View.VISIBLE
                 }
 
                 fabRemove.setOnClickListener{
-                    viewState.user.favCocktailsId!!.removeAt(viewState.user.favCocktailsId!!.indexOf(cocktail.idDrink)+1) // miért -1 az index ha a méret 1, és annak az egy elemnek az indexét keresem?
+                    viewState.user.favCocktailsId!!.removeAt(viewState.user.favCocktailsId!!.indexOf(viewModel.cocktail.idDrink)+1) // miért -1 az index ha a méret 1, és annak az egy elemnek az indexét keresem?
                     viewModel.saveUser(viewState.user, viewState.user.password, Uri.parse(viewState.user.photoImageUrl))
                     fabAdd.visibility = View.VISIBLE
                     fabRemove.visibility = View.GONE
@@ -81,50 +79,50 @@ class DetailFragment : RainbowCakeFragment<DetailViewState, DetailViewModel>() {
     private fun createIngredientList(): String {
         var ingredientString: String = ""
 
-        if (!cocktail.strIngredient1.isNullOrEmpty()) {
-            ingredientString += cocktail.strIngredient1
+        if (!viewModel.cocktail.strIngredient1.isNullOrEmpty()) {
+            ingredientString += viewModel.cocktail.strIngredient1
         }
-        if (!cocktail.strIngredient2.isNullOrEmpty()) {
-            ingredientString += ", " + cocktail.strIngredient2
+        if (!viewModel.cocktail.strIngredient2.isNullOrEmpty()) {
+            ingredientString += ", " + viewModel.cocktail.strIngredient2
         }
-        if (!cocktail.strIngredient3.isNullOrEmpty()) {
-            ingredientString += ", " + cocktail.strIngredient3
+        if (!viewModel.cocktail.strIngredient3.isNullOrEmpty()) {
+            ingredientString += ", " + viewModel.cocktail.strIngredient3
         }
-        if (!cocktail.strIngredient4.isNullOrEmpty()) {
-            ingredientString += ", " + cocktail.strIngredient4
+        if (!viewModel.cocktail.strIngredient4.isNullOrEmpty()) {
+            ingredientString += ", " + viewModel.cocktail.strIngredient4
         }
-        if (!cocktail.strIngredient5.isNullOrEmpty()) {
-            ingredientString += ", " + cocktail.strIngredient5
+        if (!viewModel.cocktail.strIngredient5.isNullOrEmpty()) {
+            ingredientString += ", " + viewModel.cocktail.strIngredient5
         }
-        if (!cocktail.strIngredient6.isNullOrEmpty()) {
-            ingredientString += ", " + cocktail.strIngredient6
+        if (!viewModel.cocktail.strIngredient6.isNullOrEmpty()) {
+            ingredientString += ", " + viewModel.cocktail.strIngredient6
         }
-        if (!cocktail.strIngredient7.isNullOrEmpty()) {
-            ingredientString += ", " + cocktail.strIngredient7
+        if (!viewModel.cocktail.strIngredient7.isNullOrEmpty()) {
+            ingredientString += ", " + viewModel.cocktail.strIngredient7
         }
-        if (!cocktail.strIngredient8.isNullOrEmpty()) {
-            ingredientString += ", " + cocktail.strIngredient8
+        if (!viewModel.cocktail.strIngredient8.isNullOrEmpty()) {
+            ingredientString += ", " + viewModel.cocktail.strIngredient8
         }
-        if (!cocktail.strIngredient9.isNullOrEmpty()) {
-            ingredientString += ", " + cocktail.strIngredient9
+        if (!viewModel.cocktail.strIngredient9.isNullOrEmpty()) {
+            ingredientString += ", " + viewModel.cocktail.strIngredient9
         }
-        if (!cocktail.strIngredient10.isNullOrEmpty()) {
-            ingredientString += ", " + cocktail.strIngredient10
+        if (!viewModel.cocktail.strIngredient10.isNullOrEmpty()) {
+            ingredientString += ", " + viewModel.cocktail.strIngredient10
         }
-        if (!cocktail.strIngredient11.isNullOrEmpty()) {
-            ingredientString += ", " + cocktail.strIngredient11
+        if (!viewModel.cocktail.strIngredient11.isNullOrEmpty()) {
+            ingredientString += ", " + viewModel.cocktail.strIngredient11
         }
-        if (!cocktail.strIngredient12.isNullOrEmpty()) {
-            ingredientString += ", " + cocktail.strIngredient12
+        if (!viewModel.cocktail.strIngredient12.isNullOrEmpty()) {
+            ingredientString += ", " + viewModel.cocktail.strIngredient12
         }
-        if (!cocktail.strIngredient13.isNullOrEmpty()) {
-            ingredientString += ", " + cocktail.strIngredient13
+        if (!viewModel.cocktail.strIngredient13.isNullOrEmpty()) {
+            ingredientString += ", " + viewModel.cocktail.strIngredient13
         }
-        if (!cocktail.strIngredient14.isNullOrEmpty()) {
-            ingredientString += ", " + cocktail.strIngredient14
+        if (!viewModel.cocktail.strIngredient14.isNullOrEmpty()) {
+            ingredientString += ", " + viewModel.cocktail.strIngredient14
         }
-        if (!cocktail.strIngredient15.isNullOrEmpty()) {
-            ingredientString += ", " + cocktail.strIngredient15
+        if (!viewModel.cocktail.strIngredient15.isNullOrEmpty()) {
+            ingredientString += ", " + viewModel.cocktail.strIngredient15
         }
 
         return ingredientString
@@ -132,7 +130,7 @@ class DetailFragment : RainbowCakeFragment<DetailViewState, DetailViewModel>() {
 
     private fun isCocktailAdded(): Boolean {
         for (cocktailID in currentUser.favCocktailsId!!) {
-            if (cocktailID == cocktail.idDrink)
+            if (cocktailID == viewModel.cocktail.idDrink)
                 return true
         }
         return false
